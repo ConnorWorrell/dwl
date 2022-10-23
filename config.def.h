@@ -23,7 +23,11 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       0,            1,           -1 },
 	*/
 	{ "firefox",  NULL,       1 << 8,       0,           -1,      0  },
-	{ NULL,     "scratchpad", 0,            1,           -1,     's' },
+	{ NULL,     "termScratch",    0,            1,           -1,     'a' },
+	{ NULL,     "rangerScratch",  0,            1,           -1,     'b' },
+	{ NULL,     "calcScratch",    0,            1,           -1,     'c' },
+	{ NULL,     "volumeScratch",  0,            1,           -1,     'd' },
+	{ NULL,     "browserScratch", 0,            1,           -1,     'e' },
 };
 
 /* layout(s) */
@@ -105,14 +109,18 @@ static const double accel_speed = 0.0;
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *termcmd[] = { "st", "-e", "fish", NULL };
+static const char *termcmd[] = { "wtermfallback", NULL };
 static const char *menucmd[] = { "bemenu-run", NULL };
 static const char *hidebar[] = { "killall", "-SIGUSR1", "waybar", NULL };
 static const char *setwallpaper[] = { "setWallpaper", "-r" , NULL };
 static const char *lock[] = { "lock" , NULL };
 
 /* named scratchpads - First arg only serves to match against key in rules*/
-static const char *scratchpadcmd[] = { "s", "alacritty", "-t", "scratchpad", NULL };
+static const char *termScratch[] = { "a", "st", "-t", "termScratch", "-e", "fish", NULL };
+static const char *rangerScratch[] = { "b", "st", "-t", "rangerScratch", "-e", "ranger", NULL };
+static const char *calcScratch[] = { "c", "st", "-t", "calcScratch", "-e", "qalc", NULL };
+static const char *volumeScratch[] = { "d", "st", "-t", "volumeScratch", "-e", "pulsemixer", NULL };
+static const char *browserScratch[] = { "e", "st", "-t", "browserScratch", "-e", "qutebrowser", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
@@ -122,7 +130,11 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_Return,     spawn,          {.v = termcmd} },
 	{ MODKEY,                    XKB_KEY_w,          spawn,          {.v = setwallpaper} },
 	{ WLR_MODIFIER_ALT,          XKB_KEY_l,          spawn,          {.v = lock} },
-	{ MODKEY,                    XKB_KEY_grave,      togglescratch,  {.v = scratchpadcmd } },
+	{ MODKEY,                    XKB_KEY_y,      togglescratch,  {.v = termScratch } },
+	{ MODKEY,                    XKB_KEY_u,      togglescratch,  {.v = rangerScratch } },
+	{ MODKEY,                    XKB_KEY_c,      togglescratch,  {.v = calcScratch } },
+	{ MODKEY,                    XKB_KEY_v,      togglescratch,  {.v = volumeScratch } },
+	{ MODKEY,                    XKB_KEY_b,      togglescratch,  {.v = browserScratch } },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },
         { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_J,          movestack,      {.i = +1} },
