@@ -18,16 +18,18 @@ static const float fullscreen_bg[]  = {0.34, 0.34, 0.34, 1.0};
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
-	/* app_id     title       tags mask     isfloating   monitor scratchkey */
+	/* app_id     title       tags mask     isfloating  isterm  noswallow  monitor scratchkey */
 	/* examples:
-	{ "Gimp",     NULL,       0,            1,           -1 },
-	*/
-	{ "firefox",  NULL,       1 << 8,       0,           -1,      0  },
-	{ NULL,     "termScratch",    0,            1,           -1,     'a' },
-	{ NULL,     "rangerScratch",  0,            1,           -1,     'b' },
-	{ NULL,     "calcScratch",    0,            1,           -1,     'c' },
-	{ NULL,     "volumeScratch",  0,            1,           -1,     'd' },
-	{ NULL,     "browserScratch", 0,            1,           -1,     'e' },
+	{ "Gimp",     NULL,       0,            1,          0,      1,         -1     0},
+    */
+	{ "firefox",  NULL,       1 << 8,       0,            0,      1,        -1,   0 },
+	{ "st",       NULL,       0,            0,            1,      0,        -1,   0 },
+	{ "foot",     NULL,       0,            0,            1,      0,        -1,   0 },
+	{ NULL,     "termScratch",    0,        1,            1,      0,        -1,  'a' },
+	{ NULL,     "rangerScratch",  0,        1,            0,      1,        -1,  'b' },
+	{ NULL,     "calcScratch",    0,        1,            0,      1,        -1,  'c' },
+	{ NULL,     "volumeScratch",  0,        1,            0,      1,        -1,  'd' },
+	{ NULL,     "browserScratch", 0,        1,            0,      1,        -1,  'e' },
 };
 
 /* layout(s) */
@@ -120,7 +122,7 @@ static const char *termScratch[] = { "a", "st", "-t", "termScratch", "-e", "fish
 static const char *rangerScratch[] = { "b", "st", "-t", "rangerScratch", "-e", "ranger", NULL };
 static const char *calcScratch[] = { "c", "st", "-t", "calcScratch", "-e", "qalc", NULL };
 static const char *volumeScratch[] = { "d", "st", "-t", "volumeScratch", "-e", "pulsemixer", NULL };
-static const char *browserScratch[] = { "e", "st", "-t", "browserScratch", "-e", "qutebrowser", NULL };
+static const char *browserScratch[] = { "e", "foot", "-t", "browserScratch", "-e", "qutebrowser", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
