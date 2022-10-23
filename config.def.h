@@ -100,7 +100,9 @@ static const double accel_speed = 0.0;
 /* commands */
 static const char *termcmd[] = { "st", "-e", "fish", NULL };
 static const char *menucmd[] = { "bemenu-run", NULL };
-static const char *hidebar[] = { "st", "-e", "killall", "-SIGUSR1", "waybar", NULL };
+static const char *hidebar[] = { "killall", "-SIGUSR1", "waybar", NULL };
+static const char *setwallpaper[] = { "setWallpaper", "-r" , NULL };
+static const char *lock[] = { "lock" , NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
@@ -108,6 +110,8 @@ static const Key keys[] = {
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_B,          spawn,          {.v = hidebar} },
 	{ MODKEY,                    XKB_KEY_p,          spawn,          {.v = menucmd} },
 	{ MODKEY,                    XKB_KEY_Return,     spawn,          {.v = termcmd} },
+	{ MODKEY,                    XKB_KEY_w,          spawn,          {.v = setwallpaper} },
+	{ WLR_MODIFIER_ALT,          XKB_KEY_l,          spawn,          {.v = lock} },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },
 	{ MODKEY,                    XKB_KEY_i,          incnmaster,     {.i = +1} },
