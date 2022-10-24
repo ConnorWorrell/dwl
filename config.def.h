@@ -111,7 +111,7 @@ static const double accel_speed = 0.0;
 
 /* commands */
 static const char *termcmd[] = { "wtermfallback", NULL };
-static const char *menucmd[] = { "bemenu-run", NULL };
+static const char *menucmd[] = { "yofi", NULL };
 static const char *hidebar[] = { "killall", "-SIGUSR1", "waybar", NULL };
 static const char *setwallpaper[] = { "setWallpaper", "-r" , NULL };
 static const char *lock[] = { "lock" , NULL };
