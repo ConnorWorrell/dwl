@@ -15,6 +15,9 @@ static const float focuscolor[]     = {0, 0.77, 0.77, 1.0};
 /* To conform the xdg-protocol, set the alpha to zero to restore the old behavior */
 static const float fullscreen_bg[]  = {0.34, 0.34, 0.34, 1.0};
 
+/* pointer constraints */
+static const int allow_constrain      = 1;
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
