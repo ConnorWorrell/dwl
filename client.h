@@ -333,3 +333,11 @@ toplevel_from_wlr_layer_surface(struct wlr_surface *s)
 
 	return NULL;
 }
+
+#ifdef XWAYLAND
+static inline int
+client_get_pid(Client *c)
+{
+    return c->surface.xwayland->pid;
+}
+#endif

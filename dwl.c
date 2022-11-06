@@ -545,7 +545,9 @@ applyrules(Client *c)
 		appid = broken;
 	if (!(title = client_get_title(c)))
 		title = broken;
-
+    if (client_is_x11(c)) {
+        c->pid = client_get_pid(c);
+    }
 	for (r = rules; r < END(rules); r++) {
 		if ((!r->title || strstr(title, r->title))
 				&& (!r->id || strstr(appid, r->id))) {
