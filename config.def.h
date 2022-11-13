@@ -27,11 +27,11 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       0,            1,           -1 },
 	*/
 	{ "firefox",  NULL,       1 << 8,       0,           0,      1,        -1,      0  },
-	{ NULL,     "termScratch",    0,        1,           0,      1,        -1,     'a' },
+	{ NULL,     "termScratch",    0,        1,           1,      0,        -1,     'a' },
 	{ NULL,     "rangerScratch",  0,        1,           0,      1,        -1,     'b' },
 	{ NULL,     "calcScratch",    0,        1,           0,      1,        -1,     'c' },
 	{ NULL,     "volumeScratch",  0,        1,           0,      1,        -1,     'd' },
-	{ NULL,     "browserScratch", 0,        1,           0,      1,        -1,     'e' },
+	{ NULL,     "browserScratch", 0,        1,           1,      0,        -1,     'e' },
 	{ NULL,     "st",           0,        0,           1,      0,        -1,      0  },
 	{ "foot",     NULL,           0,        0,           1,      0,        -1,      0  },
 };
