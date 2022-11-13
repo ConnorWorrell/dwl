@@ -875,8 +875,17 @@ closemon(Monitor *m)
 		if (c->isfloating && c->geom.x > m->m.width)
 			resize(c, (struct wlr_box){.x = c->geom.x - m->w.width, .y = c->geom.y,
 				.width = c->geom.width, .height = c->geom.height}, 0, 1);
-		if (c->mon == m)
+		if (c->mon == m) {
+            bool scratchpad = 0;
+            if (c->tags == 0 && c->scratchkey != 0){
+                scratchpad = 1;
+                c->geom.x = (selmon->w.width - c->geom.width) / 2 + selmon->m.x;
+                c->geom.y = (selmon->w.height - c->geom.height) / 2 + selmon->m.y;
+            }
 			setmon(c, selmon, c->tags);
+            if (scratchpad)
+                c->tags = 0;
+        }
 	}
 	focusclient(focustop(selmon), 1);
 	printstatus();
@@ -2752,6 +2761,7 @@ void
 togglescratch(const Arg *arg)
 {
 	Client *c;
+    Monitor *msel = selmon;
 	unsigned int found = 0;
 
 	/* search for first window that matches the scratchkey */
@@ -2763,6 +2773,13 @@ togglescratch(const Arg *arg)
 
 	if (found) {
 		c->tags = VISIBLEON(c, selmon) ? 0 : selmon->tagset[selmon->seltags];
+
+        // if scratch pad is changing monitors, recenter it
+        if (c->mon != msel && c->tags != 0){
+        	c->geom.x = (msel->w.width - c->geom.width) / 2 + msel->m.x;
+        	c->geom.y = (msel->w.height - c->geom.height) / 2 + msel->m.y;
+            setmon(c,msel,c->tags);
+        }
 
 		focusclient(c->tags == 0 ? focustop(selmon) : c, 1);
 		arrange(selmon);
