@@ -235,6 +235,7 @@ static void applyexclusive(struct wlr_box *usable_area, uint32_t anchor,
 		int32_t exclusive, int32_t margin_top, int32_t margin_right,
 		int32_t margin_bottom, int32_t margin_left);
 static void applyrules(Client *c);
+static void centerwindow(Client *c, Monitor *mon);
 static void arrange(Monitor *m);
 static void arrangelayer(Monitor *m, struct wl_list *list,
 		struct wlr_box *usable_area, int exclusive);
@@ -532,6 +533,13 @@ applyexclusive(struct wlr_box *usable_area,
 }
 
 void
+centerwindow(Client *c, Monitor *mon)
+{
+	c->geom.x = (mon->w.width - c->geom.width) / 2 + mon->m.x;
+	c->geom.y = (mon->w.height - c->geom.height) / 2 + mon->m.y;
+}
+
+void
 applyrules(Client *c)
 {
 	/* rule matching */
@@ -563,8 +571,7 @@ applyrules(Client *c)
 					mon = m;
 		}
 	}
-	c->geom.x = (mon->w.width - c->geom.width) / 2 + mon->m.x;
-	c->geom.y = (mon->w.height - c->geom.height) / 2 + mon->m.y;
+    centerwindow(c,mon);
 	wlr_scene_node_reparent(c->scene, layers[c->isfloating ? LyrFloat : LyrTile]);
 	setmon(c, mon, newtags);
 }
@@ -881,8 +888,7 @@ closemon(Monitor *m)
             bool scratchpad = 0;
             if (c->tags == 0 && c->scratchkey != 0){
                 scratchpad = 1;
-                c->geom.x = (selmon->w.width - c->geom.width) / 2 + selmon->m.x;
-                c->geom.y = (selmon->w.height - c->geom.height) / 2 + selmon->m.y;
+                centerwindow(c,selmon);
             }
 			setmon(c, selmon, c->tags);
             if (scratchpad)
@@ -2779,8 +2785,7 @@ togglescratch(const Arg *arg)
 
         // if scratch pad is changing monitors, recenter it
         if (c->mon != msel && c->tags != 0){
-        	c->geom.x = (msel->w.width - c->geom.width) / 2 + msel->m.x;
-        	c->geom.y = (msel->w.height - c->geom.height) / 2 + msel->m.y;
+            centerwindow(c,msel);
             setmon(c,msel,c->tags);
         }
 
