@@ -1783,6 +1783,7 @@ mapnotify(struct wl_listener *listener, void *data)
 	 * try to apply rules for them */
 	if ((p = client_get_parent(c)) && client_is_mapped(p)) {
 		c->isfloating = 1;
+        centerwindow(c,p->mon);
 		wlr_scene_node_reparent(c->scene, layers[LyrFloat]);
 		setmon(c, p->mon, p->tags);
 	} else {
